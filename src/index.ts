@@ -68,18 +68,20 @@ export class Index {
 
     for (const vec of vectorArray) {
       const values = [
-        `'${vec.id}'`,
+        `'${vec.id.toString().replace(/'/g, "''")}'`,
         `vector32('[${vec.vector.join(", ")}]')`,
         ...this.columns.map((col) => {
           const value = vec[col.name];
-          return typeof value === "string" ? `'${value}'` : value;
+          return typeof value === "string"
+            ? `'${value.replace(/'/g, "''")}'`
+            : value;
         }),
       ];
 
       const sql = `
-          INSERT OR REPLACE INTO ${this.tableName} (${columnNames.join(", ")})
-          VALUES (${values.join(", ")})
-        `;
+        INSERT OR REPLACE INTO ${this.tableName} (${columnNames.join(", ")})
+        VALUES (${values.join(", ")})
+      `;
 
       this.log("Upsert SQL:", sql);
 
