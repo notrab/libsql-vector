@@ -31,6 +31,37 @@ export interface IndexOptions {
   debug?: boolean;
 }
 
+export interface ListOptions {
+  cursor?: string;
+  limit?: number;
+  includeVectors?: boolean;
+  includeMetadata?: boolean;
+}
+
+export interface ListResponse {
+  items: ListItem[];
+  nextCursor: string | null;
+}
+
+export interface ListItem {
+  id: string | number;
+  vector?: number[];
+  metadata?: Record<string, Value>;
+  [key: string]: Value | number[] | undefined | Record<string, Value>;
+}
+
+export interface RetrieveOptions {
+  includeVector?: boolean;
+  includeMetadata?: boolean;
+}
+
+export interface RetrieveResponse {
+  id: string | number;
+  vector?: number[];
+  metadata?: Record<string, Value>;
+  [key: string]: Value | number[] | undefined | Record<string, Value>;
+}
+
 export class Index {
   private client: Client;
   private tableName: string;
@@ -137,6 +168,117 @@ export class Index {
 
       return response;
     });
+  }
+
+  async list(options: ListOptions = {}): Promise<ListResponse> {
+    const {
+      cursor,
+      limit = 10,
+      includeVectors = false,
+      includeMetadata = true,
+    } = options;
+
+    const selectClauses = [`${this.tableName}.id`];
+
+    if (includeVectors) {
+      selectClauses.push(`vector_extract(embedding) as vector`);
+    }
+
+    if (includeMetadata) {
+      this.columns.forEach((col) => selectClauses.push(col.name));
+    }
+
+    let sql = `SELECT ${selectClauses.join(", ")} FROM ${this.tableName}`;
+    const args: any[] = [];
+
+    if (cursor) {
+      sql += ` WHERE id > ?`;
+      args.push(cursor);
+    }
+
+    sql += ` ORDER BY id LIMIT ?`;
+    args.push(limit + 1); // Fetch one extra to determine if there's a next page
+
+    this.log("List SQL:", sql);
+    this.log("List args:", args);
+
+    const result = await this.client.execute({ sql, args });
+
+    if (!result || !result.rows || result.rows.length === 0) {
+      return { items: [], nextCursor: null };
+    }
+
+    const items: ListItem[] = result.rows.slice(0, limit).map((row) => {
+      const item: ListItem = { id: this.ensureIdType(row.id) };
+
+      if (includeVectors && row.vector) {
+        item.vector = this.parseVector(row.vector);
+      }
+
+      if (includeMetadata) {
+        item.metadata = {};
+        this.columns.forEach((col) => {
+          item.metadata![col.name] = row[col.name];
+        });
+      }
+
+      return item;
+    });
+
+    let nextCursor: string | null = null;
+
+    if (result.rows.length > limit) {
+      const lastItem = result.rows[limit - 1];
+
+      if (lastItem && lastItem.id != null) {
+        nextCursor = lastItem.id.toString();
+      }
+    }
+
+    return { items, nextCursor };
+  }
+
+  async retrieve(
+    ids: string | number | (string | number)[],
+    options: RetrieveOptions = {},
+  ): Promise<RetrieveResponse | RetrieveResponse[]> {
+    const { includeVector = true, includeMetadata = true } = options;
+    const idsArray = Array.isArray(ids) ? ids : [ids];
+
+    const selectClauses = [`${this.tableName}.id`];
+    if (includeVector) {
+      selectClauses.push(`vector_extract(embedding) as vector`);
+    }
+    if (includeMetadata) {
+      this.columns.forEach((col) => selectClauses.push(col.name));
+    }
+
+    const sql = `
+      SELECT ${selectClauses.join(", ")}
+      FROM ${this.tableName}
+      WHERE id IN (${idsArray.map(() => "?").join(", ")})
+    `;
+
+    this.log("Retrieve SQL:", sql);
+    this.log("Retrieve args:", idsArray);
+
+    const result = await this.client.execute({ sql, args: idsArray });
+
+    const items: RetrieveResponse[] = result.rows.map((row) => {
+      const item: RetrieveResponse = { id: this.ensureIdType(row.id) };
+      if (includeVector && row.vector) {
+        item.vector = this.parseVector(row.vector);
+      }
+      if (includeMetadata) {
+        item.metadata = {};
+        this.columns.forEach((col) => {
+          item.metadata![col.name] = row[col.name];
+        });
+      }
+      return item;
+    });
+
+    return Array.isArray(ids) ? items : items[0];
   }
 
   private async createTable(): Promise<void> {
