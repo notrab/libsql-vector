@@ -69,6 +69,7 @@ export class Index {
     for (const vec of vectorArray) {
       const values = [
         `'${vec.id.toString().replace(/'/g, "''")}'`,
+        // `vector32(x'${Buffer.from(new Float32Array(vec.vector).buffer).toString("hex")}')`,
         `vector32('[${vec.vector.join(", ")}]')`,
         ...this.columns.map((col) => {
           const value = vec[col.name];
