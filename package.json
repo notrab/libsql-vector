@@ -1,0 +1,78 @@
+{
+  "name": "@libsql/vector",
+  "description": "Vector search SDK for LibSQL",
+  "version": "0.0.0-development",
+  "license": "MIT",
+  "repository": "notrab/libsql-vector",
+  "keywords": [
+    "turso",
+    "tursodatabase",
+    "sqlite",
+    "libsql",
+    "vector",
+    "embeddings"
+  ],
+  "contributors": [
+    "Jamie Barton <jamie@notrab.dev>"
+  ],
+  "scripts": {
+    "build": "tsup",
+    "dev": "tsup --watch --clean=false",
+    "test": "vitest",
+    "semantic-release": "semantic-release"
+  },
+  "devDependencies": {
+    "@libsql/client": "^0.14.0",
+    "@libsql/core": "^0.14.0",
+    "@types/node": "^22.4.0",
+    "semantic-release": "^24.1.1",
+    "tsup": "^8.3.0",
+    "typescript": "^5.6.2",
+    "vite": "^5.4.8",
+    "vitest": "^2.1.1"
+  },
+  "peerDependencies": {
+    "@libsql/client": "^0.7.0"
+  },
+  "tsup": {
+    "entry": [
+      "src/index.ts"
+    ],
+    "splitting": true,
+    "sourcemap": true,
+    "clean": true,
+    "dts": true,
+    "format": [
+      "esm",
+      "cjs"
+    ],
+    "skipNodeModulesBundle": true,
+    "externals": [
+      "node_modules"
+    ]
+  },
+  "type": "module",
+  "main": "./dist/index.cjs",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": {
+        "node": "./dist/index.js",
+        "default": "./dist/index.js"
+      },
+      "require": {
+        "node": "./dist/index.cjs",
+        "default": "./dist/index.cjs"
+      }
+    }
+  },
+  "files": [
+    "dist",
+    "README.md"
+  ],
+  "publishConfig": {
+    "access": "public"
+  }
+}
