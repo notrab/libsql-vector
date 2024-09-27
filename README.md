@@ -90,6 +90,81 @@ console.log(resultsWithVectors);
 // ]
 ```
 
+### Listing Vectors
+
+```typescript
+// List vectors with default options
+const result = await vectorIndex.list();
+
+console.log(result);
+// {
+//   items: [
+//     { id: '1', metadata: { title: 'Example Document 1', timestamp: 1631234567890 } },
+//     { id: '2', metadata: { title: 'Example Document 2', timestamp: 1631234567891 } },
+//     ...
+//   ],
+//   nextCursor: '10'
+// }
+
+// List vectors with custom options
+const customResult = await vectorIndex.list({
+  cursor: "10",
+  limit: 5,
+  includeVectors: true,
+  includeMetadata: false,
+});
+
+console.log(customResult);
+// {
+//   items: [
+//     { id: '11', vector: [0.1, 0.2, 0.3, ...] },
+//     { id: '12', vector: [0.4, 0.5, 0.6, ...] },
+//     ...
+//   ],
+//   nextCursor: '15'
+// }
+```
+
+### Retrieving Vectors
+
+```typescript
+// Retrieve a single vector
+const vector = await vectorIndex.retrieve("1");
+
+console.log(vector);
+// {
+//   id: '1',
+//   vector: [0.1, 0.2, 0.3, ...],
+//   metadata: { title: 'Example Document 1', timestamp: 1631234567890 }
+// }
+
+// Retrieve multiple vectors
+const vectors = await vectorIndex.retrieve(["1", "2"]);
+
+console.log(vectors);
+// [
+//   {
+//     id: '1',
+//     vector: [0.1, 0.2, 0.3, ...],
+//     metadata: { title: 'Example Document 1', timestamp: 1631234567890 }
+//   },
+//   {
+//     id: '2',
+//     vector: [0.4, 0.5, 0.6, ...],
+//     metadata: { title: 'Example Document 2', timestamp: 1631234567891 }
+//   }
+// ]
+
+// Retrieve without vector or metadata
+const vectorWithoutDetails = await vectorIndex.retrieve("1", {
+  includeVector: false,
+  includeMetadata: false,
+});
+
+console.log(vectorWithoutDetails);
+// { id: '1' }
+```
+
 ## API Reference
 
 ### `new Index(client, options)`
@@ -127,6 +202,29 @@ Performs a similarity search.
   - `includeVectors`: Whether to include vector data in the results (default: `false`)
 
 Returns an array of results, each containing the vector's id, similarity score, and additional columns.
+
+### `index.list(options)`
+
+Lists vectors in the index with pagination.
+
+- `options`:
+  - `cursor`: Pagination cursor (optional)
+  - `limit`: Number of items to return (default: 10)
+  - `includeVectors`: Whether to include vector data in the results (default: false)
+  - `includeMetadata`: Whether to include metadata in the results (default: true)
+
+Returns an object with `items` array and `nextCursor` for pagination.
+
+### `index.retrieve(ids, options)`
+
+Retrieves one or more vectors by their IDs.
+
+- `ids`: A single ID or an array of IDs
+- `options`:
+  - `includeVector`: Whether to include vector data in the results (default: true)
+  - `includeMetadata`: Whether to include metadata in the results (default: true)
+
+Returns a single vector object or an array of vector objects.
 
 ## License
 
