@@ -59,6 +59,7 @@ export class Index {
 
   async upsert(vectors: Vector | Vector[]): Promise<string> {
     const vectorArray = Array.isArray(vectors) ? vectors : [vectors];
+
     const columnNames = [
       "id",
       "embedding",
@@ -74,11 +75,14 @@ export class Index {
           return typeof value === "string" ? `'${value}'` : value;
         }),
       ];
+
       const sql = `
           INSERT OR REPLACE INTO ${this.tableName} (${columnNames.join(", ")})
           VALUES (${values.join(", ")})
         `;
+
       this.log("Upsert SQL:", sql);
+
       await this.client.execute(sql);
     }
 
@@ -105,12 +109,12 @@ export class Index {
         FROM ${this.tableName}
         ${filter ? `WHERE ${filter}` : ""}
         ORDER BY similarity DESC
-        LIMIT ${topK}
+        LIMIT ?
       `;
 
     this.log("Query SQL:", sql);
 
-    const result: ResultSet = await this.client.execute(sql);
+    const result: ResultSet = await this.client.execute({ sql, args: [topK] });
 
     this.log("Query result:", result.rows);
 
@@ -132,87 +136,11 @@ export class Index {
     });
   }
 
-  // async upsert(vectors: Vector | Vector[]): Promise<string> {
-  //   const vectorArray = Array.isArray(vectors) ? vectors : [vectors];
-  //   const columnNames = [
-  //     "id",
-  //     "embedding",
-  //     ...this.columns.map((col) => col.name),
-  //   ];
-  //   const placeholders = columnNames.map(() => "?").join(", ");
-  //   const sql = `
-  //     INSERT OR REPLACE INTO ${this.tableName} (${columnNames.join(", ")})
-  //     VALUES (${placeholders})
-  //   `;
-
-  //   const batch: InStatement[] = vectorArray.map((vec) => ({
-  //     sql,
-  //     args: [
-  //       vec.id,
-  //       `[${vec.vector.join(", ")}]`,
-  //       ...this.columns.map((col) => this.ensureInValue(vec[col.name])),
-  //     ],
-  //   }));
-
-  //   await this.client.batch(batch);
-  //   return "Success";
-  // }
-
-  // async query(
-  //   queryVector: number[],
-  //   options: QueryOptions,
-  // ): Promise<QueryResponse[]> {
-  //   const { topK, includeVectors = false, filter = "" } = options;
-
-  //   const whereClause = filter ? `WHERE ${filter}` : "";
-
-  //   const selectClauses = [
-  //     `${this.tableName}.id`,
-  //     `vector_distance_cos(embedding, vector32(?)) as score`,
-  //     ...this.columns.map((col) => col.name),
-  //   ];
-
-  //   if (includeVectors)
-  //     selectClauses.push("vector_extract(embedding) as vector");
-
-  //   const sql = `
-  //       SELECT ${selectClauses.join(", ")}
-  //       FROM vector_top_k('idx_${this.tableName}_embedding', vector32(?), ?) AS top_k
-  //       JOIN ${this.tableName} ON ${this.tableName}.rowid = top_k.id
-  //       ${whereClause}
-  //       ORDER BY score ASC
-  //       LIMIT ?
-  //     `;
-
-  //   const vectorString = `[${queryVector.join(", ")}]`;
-
-  //   const result: ResultSet = await this.client.execute({
-  //     sql,
-  //     args: [vectorString, vectorString, topK, topK],
-  //   });
-
-  //   return result.rows.map((row) => {
-  //     const response: QueryResponse = {
-  //       id: this.ensureIdType(row.id),
-  //       score: this.ensureNumber(row.score),
-  //     };
-
-  //     if (includeVectors) {
-  //       response.vector = this.parseVector(row.vector);
-  //     }
-
-  //     this.columns.forEach((col) => {
-  //       response[col.name] = row[col.name];
-  //     });
-
-  //     return response;
-  //   });
-  // }
-
   private async createTable(): Promise<void> {
     const columnDefinitions = this.columns
       .map((col) => `${col.name} ${col.type}`)
       .join(", ");
+
     const sql = `
       CREATE TABLE IF NOT EXISTS ${this.tableName} (
         id TEXT PRIMARY KEY,
@@ -220,22 +148,18 @@ export class Index {
         ${columnDefinitions}
       )
     `;
+
     this.log("Create table SQL:", sql);
+
     await this.client.execute(sql);
   }
 
   private async createIndex(): Promise<void> {
     const sql = `CREATE INDEX IF NOT EXISTS idx_${this.tableName}_embedding ON ${this.tableName}(libsql_vector_idx(embedding))`;
+
     this.log("Create index SQL:", sql);
+
     await this.client.execute(sql);
-  }
-
-  private ensureInValue(value: Value | number[]): InValue {
-    if (Array.isArray(value)) {
-      return JSON.stringify(value);
-    }
-
-    return value as InValue;
   }
 
   private ensureIdType(value: Value): string | number {
