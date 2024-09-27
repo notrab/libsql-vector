@@ -32,7 +32,7 @@
     "vitest": "^2.1.1"
   },
   "peerDependencies": {
-    "@libsql/client": "^0.7.0"
+    "@libsql/client": "^0.7.0 || ^0.14.0"
   },
   "tsup": {
     "entry": [
