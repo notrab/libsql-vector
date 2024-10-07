@@ -6,14 +6,14 @@ import os from "os";
 
 import { Index, Vector, IndexOptions } from "./";
 
-describe("@libsql/vector", () => {
+describe("libsql-vector", () => {
   let client: Client;
   let dbPath: string;
 
   beforeEach(() => {
     dbPath = path.join(
       os.tmpdir(),
-      `test_db_${Date.now()}_${Math.random().toString(36).substring(7)}.sqlite`,
+      `test_db_${Date.now()}_${Math.random().toString(36).substring(7)}.sqlite`
     );
     client = createClient({ url: `file:${dbPath}` });
   });
@@ -38,12 +38,12 @@ describe("@libsql/vector", () => {
       await vectorIndex.initialize();
 
       const tableResult = await client.execute(
-        "SELECT name FROM sqlite_master WHERE type='table' AND name='test_table'",
+        "SELECT name FROM sqlite_master WHERE type='table' AND name='test_table'"
       );
       expect(tableResult.rows.length).toBe(1);
 
       const indexResult = await client.execute(
-        "SELECT name FROM sqlite_master WHERE type='index' AND name='idx_test_table_embedding'",
+        "SELECT name FROM sqlite_master WHERE type='index' AND name='idx_test_table_embedding'"
       );
       expect(indexResult.rows.length).toBe(1);
     });
@@ -191,7 +191,7 @@ describe("@libsql/vector", () => {
 
       expect(result.length).toBe(3);
       expect(result.map((r) => r.id)).toEqual(
-        expect.arrayContaining(["1", "2", "3"]),
+        expect.arrayContaining(["1", "2", "3"])
       );
       result.forEach((r) => {
         expect(r.score).toBeGreaterThanOrEqual(0);

@@ -1,9 +1,9 @@
-# @libsql/vector
+# libsql-vector
 
 Vector similarity search for libSQL and Turso.
 
 ```bash
-npm install @libsql/vector # doesn't yet exist
+npm install libsql-vector # doesn't yet exist
 ```
 
 ## Usage
@@ -12,7 +12,7 @@ npm install @libsql/vector # doesn't yet exist
 
 ```typescript
 import { createClient } from "@libsql/client";
-import { Index } from "@libsql/vector";
+import { Index } from "libsql-vector";
 
 const client = createClient({ url: "file:vector.db" });
 const vectorIndex = new Index(client, {
