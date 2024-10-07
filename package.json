@@ -1,5 +1,5 @@
 {
-  "name": "@libsql/vector",
+  "name": "libsql-vector",
   "description": "Vector search SDK for LibSQL",
   "version": "0.0.0-development",
   "license": "MIT",
