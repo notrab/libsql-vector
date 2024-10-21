@@ -3,7 +3,7 @@
 Vector similarity search for libSQL and Turso.
 
 ```bash
-npm install libsql-vector # doesn't yet exist
+npm install libsql-vector
 ```
 
 ## Usage

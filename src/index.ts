@@ -125,7 +125,7 @@ export class Index {
 
   async query(
     queryVector: number[],
-    options: QueryOptions,
+    options: QueryOptions
   ): Promise<QueryResponse[]> {
     const { topK, includeVectors = false, filter = "" } = options;
 
@@ -240,7 +240,7 @@ export class Index {
 
   async retrieve(
     ids: string | number | (string | number)[],
-    options: RetrieveOptions = {},
+    options: RetrieveOptions = {}
   ): Promise<RetrieveResponse | RetrieveResponse[]> {
     const { includeVector = true, includeMetadata = true } = options;
     const idsArray = Array.isArray(ids) ? ids : [ids];
