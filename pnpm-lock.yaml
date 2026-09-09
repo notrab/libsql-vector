@@ -16,22 +16,22 @@ importers:
         version: 0.14.0
       '@types/node':
         specifier: ^22.4.0
-        version: 22.7.3
+        version: 22.20.2
       semantic-release:
         specifier: ^24.1.1
-        version: 24.1.1(typescript@5.6.2)
+        version: 24.1.1(supports-color@7.2.0)(typescript@5.6.2)
       tsup:
         specifier: ^8.3.0
-        version: 8.3.0(postcss@8.4.47)(typescript@5.6.2)
+        version: 8.3.0(postcss@8.4.47)(supports-color@7.2.0)(typescript@5.6.2)
       typescript:
         specifier: ^5.6.2
         version: 5.6.2
       vite:
         specifier: ^5.4.8
-        version: 5.4.8(@types/node@22.7.3)
+        version: 5.4.8(@types/node@22.20.2)
       vitest:
         specifier: ^2.1.1
-        version: 2.1.1(@types/node@22.7.3)
+        version: 2.1.1(@types/node@22.20.2)(supports-color@7.2.0)
 
 packages:
 
@@ -611,8 +611,8 @@ packages:
   '@types/estree@1.0.5':
     resolution: {integrity: sha512-/kYRxGDLWzHOB7q+wtSUQlFrtcdUccpfy+X+9iMBpHK8QLLhx2wIPYuS5DYtR9Wa/YlZAbIovy7qVdB1Aq6Lyw==}
 
-  '@types/node@22.7.3':
-    resolution: {integrity: sha512-qXKfhXXqGTyBskvWEzJZPUxSslAiLaB6JGP1ic/XTH9ctGgzdgYguuLP1C601aRTSDNlLb0jbKqXjZ48GNraSA==}
+  '@types/node@22.20.2':
+    resolution: {integrity: sha512-xlvWf4Vs9n1PEVYwP1n4vvG07M6y8WgvJ2t0vbrWTmijsIHp1cS+uJ2kMIRdY3nHZK0nCYKrPeD171+SzF4/zw==}
 
   '@types/normalize-package-data@2.4.4':
     resolution: {integrity: sha512-37i+OaWTh9qeK4LSHPsyRC7NahnGotNuZvjLSgcPzblpHB3rrCJxAOgI5gCdKm7coonsaX1Of0ILiTcnZjbfxA==}
@@ -1938,8 +1938,8 @@ packages:
     engines: {node: '>=0.8.0'}
     hasBin: true
 
-  undici-types@6.19.8:
-    resolution: {integrity: sha512-ve2KP6f/JnbPBFyobGHuerC9g1FYGn/F8n1LWTwNxCEzd6IfqTwUQcNXgEtmmQ6DlRrC1hrSrBnCZPokRrDHjw==}
+  undici-types@6.21.0:
+    resolution: {integrity: sha512-iwDZqg0QAGrg9Rav5H4n0M64c3mkR59cJ6wQp+7C4nI0gsmExaedaYLNO44eT4AtBBwjbTiGPMlt2Md0T9H9JQ==}
 
   unicode-emoji-modifier-base@1.0.0:
     resolution: {integrity: sha512-yLSH4py7oFH3oG/9K+XWrz1pSi3dfUrWEnInbxMfArOfc1+33BlGPQtLsOYwvdMy11AwUBetYuaRxSPqgkq+8g==}
@@ -2485,23 +2485,23 @@ snapshots:
 
   '@sec-ant/readable-stream@0.4.1': {}
 
-  '@semantic-release/commit-analyzer@13.0.0(semantic-release@24.1.1(typescript@5.6.2))':
+  '@semantic-release/commit-analyzer@13.0.0(semantic-release@24.1.1(supports-color@7.2.0)(typescript@5.6.2))(supports-color@7.2.0)':
     dependencies:
       conventional-changelog-angular: 8.0.0
       conventional-changelog-writer: 8.0.0
       conventional-commits-filter: 5.0.0
       conventional-commits-parser: 6.0.0
-      debug: 4.3.7
-      import-from-esm: 1.3.4
+      debug: 4.3.7(supports-color@7.2.0)
+      import-from-esm: 1.3.4(supports-color@7.2.0)
       lodash-es: 4.17.21
       micromatch: 4.0.8
-      semantic-release: 24.1.1(typescript@5.6.2)
+      semantic-release: 24.1.1(supports-color@7.2.0)(typescript@5.6.2)
     transitivePeerDependencies:
       - supports-color
 
   '@semantic-release/error@4.0.0': {}
 
-  '@semantic-release/github@10.3.5(semantic-release@24.1.1(typescript@5.6.2))':
+  '@semantic-release/github@10.3.5(semantic-release@24.1.1(supports-color@7.2.0)(typescript@5.6.2))(supports-color@7.2.0)':
     dependencies:
       '@octokit/core': 6.1.2
       '@octokit/plugin-paginate-rest': 11.3.3(@octokit/core@6.1.2)
@@ -2509,21 +2509,21 @@ snapshots:
       '@octokit/plugin-throttling': 9.3.1(@octokit/core@6.1.2)
       '@semantic-release/error': 4.0.0
       aggregate-error: 5.0.0
-      debug: 4.3.7
+      debug: 4.3.7(supports-color@7.2.0)
       dir-glob: 3.0.1
       globby: 14.0.2
-      http-proxy-agent: 7.0.2
-      https-proxy-agent: 7.0.5
+      http-proxy-agent: 7.0.2(supports-color@7.2.0)
+      https-proxy-agent: 7.0.5(supports-color@7.2.0)
       issue-parser: 7.0.1
       lodash-es: 4.17.21
       mime: 4.0.4
       p-filter: 4.1.0
-      semantic-release: 24.1.1(typescript@5.6.2)
+      semantic-release: 24.1.1(supports-color@7.2.0)(typescript@5.6.2)
       url-join: 5.0.0
     transitivePeerDependencies:
       - supports-color
 
-  '@semantic-release/npm@12.0.1(semantic-release@24.1.1(typescript@5.6.2))':
+  '@semantic-release/npm@12.0.1(semantic-release@24.1.1(supports-color@7.2.0)(typescript@5.6.2))':
     dependencies:
       '@semantic-release/error': 4.0.0
       aggregate-error: 5.0.0
@@ -2536,23 +2536,23 @@ snapshots:
       rc: 1.2.8
       read-pkg: 9.0.1
       registry-auth-token: 5.0.2
-      semantic-release: 24.1.1(typescript@5.6.2)
+      semantic-release: 24.1.1(supports-color@7.2.0)(typescript@5.6.2)
       semver: 7.6.3
       tempy: 3.1.0
 
-  '@semantic-release/release-notes-generator@14.0.1(semantic-release@24.1.1(typescript@5.6.2))':
+  '@semantic-release/release-notes-generator@14.0.1(semantic-release@24.1.1(supports-color@7.2.0)(typescript@5.6.2))(supports-color@7.2.0)':
     dependencies:
       conventional-changelog-angular: 8.0.0
       conventional-changelog-writer: 8.0.0
       conventional-commits-filter: 5.0.0
       conventional-commits-parser: 6.0.0
-      debug: 4.3.7
+      debug: 4.3.7(supports-color@7.2.0)
       get-stream: 7.0.1
-      import-from-esm: 1.3.4
+      import-from-esm: 1.3.4(supports-color@7.2.0)
       into-stream: 7.0.0
       lodash-es: 4.17.21
       read-package-up: 11.0.0
-      semantic-release: 24.1.1(typescript@5.6.2)
+      semantic-release: 24.1.1(supports-color@7.2.0)(typescript@5.6.2)
     transitivePeerDependencies:
       - supports-color
 
@@ -2564,9 +2564,9 @@ snapshots:
 
   '@types/estree@1.0.5': {}
 
-  '@types/node@22.7.3':
+  '@types/node@22.20.2':
     dependencies:
-      undici-types: 6.19.8
+      undici-types: 6.21.0
 
   '@types/normalize-package-data@2.4.4': {}
 
@@ -2574,7 +2574,7 @@ snapshots:
 
   '@types/ws@8.5.12':
     dependencies:
-      '@types/node': 22.7.3
+      '@types/node': 22.20.2
 
   '@vitest/expect@2.1.1':
     dependencies:
@@ -2583,13 +2583,13 @@ snapshots:
       chai: 5.1.1
       tinyrainbow: 1.2.0
 
-  '@vitest/mocker@2.1.1(@vitest/spy@2.1.1)(vite@5.4.8(@types/node@22.7.3))':
+  '@vitest/mocker@2.1.1(@vitest/spy@2.1.1)(vite@5.4.8(@types/node@22.20.2))':
     dependencies:
       '@vitest/spy': 2.1.1
       estree-walker: 3.0.3
       magic-string: 0.30.11
     optionalDependencies:
-      vite: 5.4.8(@types/node@22.7.3)
+      vite: 5.4.8(@types/node@22.20.2)
 
   '@vitest/pretty-format@2.1.1':
     dependencies:
@@ -2616,9 +2616,9 @@ snapshots:
       loupe: 3.1.1
       tinyrainbow: 1.2.0
 
-  agent-base@7.1.1:
+  agent-base@7.1.1(supports-color@7.2.0):
     dependencies:
-      debug: 4.3.7
+      debug: 4.3.7(supports-color@7.2.0)
     transitivePeerDependencies:
       - supports-color
 
@@ -2822,9 +2822,11 @@ snapshots:
 
   data-uri-to-buffer@4.0.1: {}
 
-  debug@4.3.7:
+  debug@4.3.7(supports-color@7.2.0):
     dependencies:
       ms: 2.1.3
+    optionalDependencies:
+      supports-color: 7.2.0
 
   deep-eql@5.0.2: {}
 
@@ -3111,17 +3113,17 @@ snapshots:
     dependencies:
       lru-cache: 10.4.3
 
-  http-proxy-agent@7.0.2:
+  http-proxy-agent@7.0.2(supports-color@7.2.0):
     dependencies:
-      agent-base: 7.1.1
-      debug: 4.3.7
+      agent-base: 7.1.1(supports-color@7.2.0)
+      debug: 4.3.7(supports-color@7.2.0)
     transitivePeerDependencies:
       - supports-color
 
-  https-proxy-agent@7.0.5:
+  https-proxy-agent@7.0.5(supports-color@7.2.0):
     dependencies:
-      agent-base: 7.1.1
-      debug: 4.3.7
+      agent-base: 7.1.1(supports-color@7.2.0)
+      debug: 4.3.7(supports-color@7.2.0)
     transitivePeerDependencies:
       - supports-color
 
@@ -3138,9 +3140,9 @@ snapshots:
       parent-module: 1.0.1
       resolve-from: 4.0.0
 
-  import-from-esm@1.3.4:
+  import-from-esm@1.3.4(supports-color@7.2.0):
     dependencies:
-      debug: 4.3.7
+      debug: 4.3.7(supports-color@7.2.0)
       import-meta-resolve: 4.1.0
     transitivePeerDependencies:
       - supports-color
@@ -3575,16 +3577,16 @@ snapshots:
 
   safe-buffer@5.1.2: {}
 
-  semantic-release@24.1.1(typescript@5.6.2):
+  semantic-release@24.1.1(supports-color@7.2.0)(typescript@5.6.2):
     dependencies:
-      '@semantic-release/commit-analyzer': 13.0.0(semantic-release@24.1.1(typescript@5.6.2))
+      '@semantic-release/commit-analyzer': 13.0.0(semantic-release@24.1.1(supports-color@7.2.0)(typescript@5.6.2))(supports-color@7.2.0)
       '@semantic-release/error': 4.0.0
-      '@semantic-release/github': 10.3.5(semantic-release@24.1.1(typescript@5.6.2))
-      '@semantic-release/npm': 12.0.1(semantic-release@24.1.1(typescript@5.6.2))
-      '@semantic-release/release-notes-generator': 14.0.1(semantic-release@24.1.1(typescript@5.6.2))
+      '@semantic-release/github': 10.3.5(semantic-release@24.1.1(supports-color@7.2.0)(typescript@5.6.2))(supports-color@7.2.0)
+      '@semantic-release/npm': 12.0.1(semantic-release@24.1.1(supports-color@7.2.0)(typescript@5.6.2))
+      '@semantic-release/release-notes-generator': 14.0.1(semantic-release@24.1.1(supports-color@7.2.0)(typescript@5.6.2))(supports-color@7.2.0)
       aggregate-error: 5.0.0
       cosmiconfig: 9.0.0(typescript@5.6.2)
-      debug: 4.3.7
+      debug: 4.3.7(supports-color@7.2.0)
       env-ci: 11.1.0
       execa: 9.4.0
       figures: 6.1.0
@@ -3593,7 +3595,7 @@ snapshots:
       git-log-parser: 1.2.1
       hook-std: 3.0.0
       hosted-git-info: 8.0.0
-      import-from-esm: 1.3.4
+      import-from-esm: 1.3.4(supports-color@7.2.0)
       lodash-es: 4.17.21
       marked: 12.0.2
       marked-terminal: 7.1.0(marked@12.0.2)
@@ -3796,13 +3798,13 @@ snapshots:
 
   ts-interface-checker@0.1.13: {}
 
-  tsup@8.3.0(postcss@8.4.47)(typescript@5.6.2):
+  tsup@8.3.0(postcss@8.4.47)(supports-color@7.2.0)(typescript@5.6.2):
     dependencies:
       bundle-require: 5.0.0(esbuild@0.23.1)
       cac: 6.7.14
       chokidar: 3.6.0
       consola: 3.2.3
-      debug: 4.3.7
+      debug: 4.3.7(supports-color@7.2.0)
       esbuild: 0.23.1
       execa: 5.1.1
       joycon: 3.1.1
@@ -3834,7 +3836,7 @@ snapshots:
   uglify-js@3.19.3:
     optional: true
 
-  undici-types@6.19.8: {}
+  undici-types@6.21.0: {}
 
   unicode-emoji-modifier-base@1.0.0: {}
 
@@ -3859,12 +3861,12 @@ snapshots:
       spdx-correct: 3.2.0
       spdx-expression-parse: 3.0.1
 
-  vite-node@2.1.1(@types/node@22.7.3):
+  vite-node@2.1.1(@types/node@22.20.2)(supports-color@7.2.0):
     dependencies:
       cac: 6.7.14
-      debug: 4.3.7
+      debug: 4.3.7(supports-color@7.2.0)
       pathe: 1.1.2
-      vite: 5.4.8(@types/node@22.7.3)
+      vite: 5.4.8(@types/node@22.20.2)
     transitivePeerDependencies:
       - '@types/node'
       - less
@@ -3876,26 +3878,26 @@ snapshots:
       - supports-color
       - terser
 
-  vite@5.4.8(@types/node@22.7.3):
+  vite@5.4.8(@types/node@22.20.2):
     dependencies:
       esbuild: 0.21.5
       postcss: 8.4.47
       rollup: 4.22.4
     optionalDependencies:
-      '@types/node': 22.7.3
+      '@types/node': 22.20.2
       fsevents: 2.3.3
 
-  vitest@2.1.1(@types/node@22.7.3):
+  vitest@2.1.1(@types/node@22.20.2)(supports-color@7.2.0):
     dependencies:
       '@vitest/expect': 2.1.1
-      '@vitest/mocker': 2.1.1(@vitest/spy@2.1.1)(vite@5.4.8(@types/node@22.7.3))
+      '@vitest/mocker': 2.1.1(@vitest/spy@2.1.1)(vite@5.4.8(@types/node@22.20.2))
       '@vitest/pretty-format': 2.1.1
       '@vitest/runner': 2.1.1
       '@vitest/snapshot': 2.1.1
       '@vitest/spy': 2.1.1
       '@vitest/utils': 2.1.1
       chai: 5.1.1
-      debug: 4.3.7
+      debug: 4.3.7(supports-color@7.2.0)
       magic-string: 0.30.11
       pathe: 1.1.2
       std-env: 3.7.0
@@ -3903,11 +3905,11 @@ snapshots:
       tinyexec: 0.3.0
       tinypool: 1.0.1
       tinyrainbow: 1.2.0
-      vite: 5.4.8(@types/node@22.7.3)
-      vite-node: 2.1.1(@types/node@22.7.3)
+      vite: 5.4.8(@types/node@22.20.2)
+      vite-node: 2.1.1(@types/node@22.20.2)(supports-color@7.2.0)
       why-is-node-running: 2.3.0
     optionalDependencies:
-      '@types/node': 22.7.3
+      '@types/node': 22.20.2
     transitivePeerDependencies:
       - less
       - lightningcss
